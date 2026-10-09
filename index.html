@@ -2,7 +2,7 @@
 <html lang="id"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light only">
-<title>Perpustakaan At Tibyan</title>
+<title>Perpustakaan RA AL Falah Ngubalan</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Noto+Naskh+Arabic:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{color-scheme:light;--bg:#ffffff;--card:#fff;--ink:#0f2a3d;--mut:#5d7285;--edge:rgba(15,42,61,.1);--sh:0 10px 28px rgba(15,42,61,.1);--c:#0f766e}
@@ -231,7 +231,7 @@ function render(){
  if(!U&&gs())S.v='auth';
  const c=['home','auth','guru','certs','cert'].includes(S.v)?null:C[S.c];
  document.documentElement.style.setProperty('--c',c?c.c:'#1e88e5');
- const ttl=S.v==='auth'?'Masuk 🔑':S.v==='certs'||S.v==='cert'?'Sertifikat 🏅':S.v==='guru'?(U&&U.peran==='kepsek'?'Kepala Sekolah 🏫':'Ruang Guru 👩‍🏫'):!c?'Perpustakaan At Tibyan':S.v==='cat'?`${c.e} ${c.t}`:`Tingkat ${S.l+1} · ${c.L[S.l][0]}`;
+ const ttl=S.v==='auth'?'Masuk 🔑':S.v==='certs'||S.v==='cert'?'Sertifikat 🏅':S.v==='guru'?(U&&U.peran==='kepsek'?'Kepala Sekolah 🏫':'Ruang Guru 👩‍🏫'):!c?'Perpustakaan RA AL Falah Ngubalan':S.v==='cat'?`${c.e} ${c.t}`:`Tingkat ${S.l+1} · ${c.L[S.l][0]}`;
  $$('#hd').innerHTML=(c?'<button class="back" aria-label="Kembali" onclick="back()">◀</button>':'')+`<img class="lg" src="${LOGO}" alt="Logo" onerror="this.style.display='none'"><h1>${ttl}</h1>`+(U?`<button class="pill" onclick="logout()" aria-label="Keluar">${murid()?'⭐ '+tot()+' · ':''}${esc(U.nama)} ⎋</button>`:S.v==='auth'?'':`<div class="pill">⭐ ${tot()}</div>`);
  if(S.v==='auth')auth();else if(S.v==='guru')guruv();else if(S.v==='certs')certs();else if(S.v==='cert')cert();else if(S.v==='home')home();else if(S.v==='cat')cat();else if(S.v==='puz')puz(true);else S.m==='learn'?learn():S.m==='quiz'?drawQ():result();
 }
@@ -323,7 +323,7 @@ function certs(){const el=elig(PR,hid);$$('#mn').innerHTML=`<button class="back"
 const bc=()=>S.cx.cb==='detail'?detail(DC.m.id):set({v:'certs'});
 function cert(){
  const x=S.cx,o=C[x.k];
- $$('#mn').innerHTML=`<div class="noprint tabs"><button onclick="bc()">◀ Kembali</button><button class="on" onclick="window.print()">🖨️ Cetak</button></div><div class="cert"><div class="cm">🏅</div><h2>SERTIFIKAT PENGHARGAAN</h2><p>Diberikan kepada</p><h1>${esc(x.n)}</h1>${x.kl?`<p>${esc(x.kl)}</p>`:''}<p>yang telah menyelesaikan seluruh tingkat belajar</p><h3>${o.e} ${esc(o.t)}</h3><p>dengan perolehan ${x.s} dari ${x.m} bintang ⭐</p><p class="ds">${new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'})}</p>${x.g?`<p><b>${esc(x.g)}</b></p>`:''}<small>Perpustakaan At Tibyan</small></div>`;
+ $$('#mn').innerHTML=`<div class="noprint tabs"><button onclick="bc()">◀ Kembali</button><button class="on" onclick="window.print()">🖨️ Cetak</button></div><div class="cert"><div class="cm">🏅</div><h2>SERTIFIKAT PENGHARGAAN</h2><p>Diberikan kepada</p><h1>${esc(x.n)}</h1>${x.kl?`<p>${esc(x.kl)}</p>`:''}<p>yang telah menyelesaikan seluruh tingkat belajar</p><h3>${o.e} ${esc(o.t)}</h3><p>dengan perolehan ${x.s} dari ${x.m} bintang ⭐</p><p class="ds">${new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'})}</p>${x.g?`<p><b>${esc(x.g)}</b></p>`:''}<small>Perpustakaan RA AL Falah Ngubalan</small></div>`;
  sfx(1);
 }
 function drawG(){
