@@ -105,6 +105,13 @@ header{margin:0 -8px 8px;padding:10px 8px;border-bottom:1px solid var(--edge);bo
 html,body{background:#fff!important;background-image:none!important;color-scheme:light}
 header{background:#fff}
 .lg{width:40px;height:40px;object-fit:contain;flex:none}
+/* ===== Permainan baru ===== */
+.smg{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:340px;margin:8px auto 0}
+.sm{aspect-ratio:1;border-radius:30px;background:var(--k);opacity:.85;box-shadow:0 8px 16px color-mix(in srgb,var(--k) 35%,transparent)}
+.smg.show .sm{opacity:.35}
+.sm.lit{opacity:1;transform:scale(1.07);box-shadow:0 0 0 7px color-mix(in srgb,var(--k) 35%,transparent)}
+.sm:disabled{cursor:default}
+.pc.x{background:#ffcdd2!important;color:#333;animation:shake .4s}
 </style></head><body>
 <div id="app"><header id="hd"></header><main id="mn"></main></div>
 <script>
@@ -113,7 +120,7 @@ header{background:#fff}
    Contoh: https://raw.githubusercontent.com/USERNAME/NAMA-REPO/main/logo.png
    ============================================================ */
 const LOGO='https://raw.githubusercontent.com/kuntiaja/Perpustakaan-raalfalahngubalan/main/logo.png';
-
+ 
 const $=s=>$$(s),$$=s=>document.querySelector(s);
 const shuf=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
 const rng=(a,b)=>Array.from({length:b-a+1},(_,i)=>a+i);
@@ -201,7 +208,7 @@ const lw1=(a,b,ea,eb)=>({l:`${a} ↔ ${b}`,v:`<div class="em1" style="font-size:
 const lw=s=>s.split(';').flatMap(r=>{const[a,b,ea,eb]=r.split('|');return[lw1(a,b,ea,eb),lw1(b,a,eb,ea)]});
 const hh=(l1,c1,l2,c2)=>hr([[l1,c1],[l2,c2]].flatMap(([l,c])=>[l+'َ|'+c+'a',l+'ِ|'+c+'i',l+'ُ|'+c+'u']).join(';'));
 /* Angka */
-C.angka.L.push(['Angka 31–40',rng(31,40).map(n=>num(n,idn(n)))],['Angka 41–50',rng(41,50).map(n=>num(n,idn(n)))],['Angka setelahnya',rng(1,10).map(n=>nx(n,1))],['Angka sebelumnya',rng(2,11).map(n=>nx(n,-1))],['Tambah lebih banyak',[[6,3],[7,2],[4,5],[6,4],[7,3],[8,2],[5,4],[3,6],[2,7],[1,8]].map(([a,b])=>op(a,b,1))],['Kurang lebih banyak',[[7,2],[8,3],[9,4],[10,3],[10,6],[9,6],[8,5],[7,5],[10,8],[9,2]].map(([a,b])=>op(a,b,0))]);
+C.angka.L.push(['Angka 31–40',rng(31,40).map(n=>num(n,idn(n)))],['Angka 41–50',rng(41,50).map(n=>num(n,idn(n)))],['Angka setelahnya',rng(1,10).map(n=>nx(n,1))],['Angka sebelumnya',rng(2,11).map(n=>nx(n,-1))],['Tambah lebih banyak',[[6,3],[7,4],[4,5],[6,4],[5,5],[8,3],[5,4],[3,6],[2,7],[1,8]].map(([a,b])=>op(a,b,1))],['Kurang lebih banyak',[[7,2],[8,3],[9,4],[10,3],[10,6],[9,6],[8,5],[7,5],[10,8],[9,2]].map(([a,b])=>op(a,b,0))]);
 /* Huruf */
 C.huruf.L.push(['Suku kata W Y J F',sk('wyjf')],['Membaca kata 4',kt('Kupu-kupu|🦋;Semut|🐜;Ikan|🐟;Kelapa|🥥;Jagung|🌽;Telur|🥚;Daun|🍃;Awan|☁️;Hujan|🌧️;Pohon|🌳')],['Membaca kata 5',kt('Dokter|👨‍⚕️;Guru|👩‍🏫;Polisi|👮;Pilot|👨‍✈️;Koki|👨‍🍳;Sekolah|🏫;Masjid|🕌;Taman|🏞️;Kapal|🚢;Bendera|🚩')],['Membaca kata 6',kt('Jendela|🪟;Gelas|🥛;Garpu|🍴;Tangga|🪜;Kamera|📷;Telepon|📞;Jam|⏰;Kunci|🔑;Sabun|🧼;Sikat|🪥')]);
 /* Hijaiyah: harakat lanjutan */
@@ -220,6 +227,100 @@ C.lawan={t:'Lawan Kata',e:'↔️',c:'#8e24aa',g:2,L:[['Ukuran dan jumlah',lw('B
 C.indo={t:'Cinta Indonesia',e:'🇮🇩',c:'#d32f2f',g:2,L:[['Simbol negara',em('Bendera Merah Putih|🇮🇩;Burung Garuda|🦅;Monas|🗼;Komodo|🦎;Padi|🌾;Rumah Adat|🛖')],['Pulau besar',tx(['Sumatra','Jawa','Kalimantan','Sulawesi','Papua'],'pulau',2.8,(i,d)=>`Pulau ${d}`)],['Hari penting',tx(['Kemerdekaan','Hari Kartini','Hari Pahlawan','Hari Guru'],'hari',2.2,(i,d)=>['17 Agustus','21 April','10 November','25 November'][i]+': '+d)]]};
 C.sains={t:'Sains Seru',e:'🔬',c:'#0277bd',g:1,L:[['Panca indera',em('Melihat|👁️;Mendengar|👂;Mencium|👃;Mengecap|👅;Meraba|✋')],['Wujud benda',em('Padat|🧊;Cair|💧;Gas|💨')],['Listrik dan magnet',em('Magnet|🧲;Baterai|🔋;Lampu|💡;Api|🔥;Kompas|🧭')],['Tumbuhan tumbuh',em('Biji|🌰;Tunas|🌱;Tanaman|🌿;Pohon|🌳;Bunga|🌷;Buah|🍎')]]};
 C.doa={t:'Doa & Ucapan',e:'🤲',c:'#1565c0',g:3,L:[['Ucapan sehari-hari',ar('بِسْمِ اللَّهِ|Bismillah|Dengan nama Allah;الْحَمْدُ لِلَّهِ|Alhamdulillah|Segala puji bagi Allah;السَّلَامُ عَلَيْكُمْ|Assalamualaikum|Semoga selamat atas kamu;سُبْحَانَ اللَّهِ|Subhanallah|Maha Suci Allah;اللَّهُ أَكْبَرُ|Allahu Akbar|Allah Maha Besar;مَا شَاءَ اللَّهُ|Masya Allah|Atas kehendak Allah;إِنْ شَاءَ اللَّهُ|Insya Allah|Jika Allah menghendaki')],['Kapan mengucapkannya?',ak('Mau makan|🍽️|Bismillah;Selesai makan|🥣|Alhamdulillah;Bertemu teman|🤝|Assalamualaikum;Melihat pelangi|🌈|Subhanallah;Melihat bunga indah|🌸|Masya Allah;Merencanakan besok|📅|Insya Allah')],['Shalat lima waktu',tx(['Subuh','Zuhur','Asar','Magrib','Isya'],'shalat',3,(i,d)=>`Shalat ${d}`)],['Nabi dan Rasul',tx(['Adam','Idris','Nuh','Ibrahim','Ismail','Ishaq','Yakub','Yusuf','Musa','Isa','Muhammad'],'nabi',2.6,(i,d)=>`Nabi ${d}`)],['Surat pendek',tx(['Al-Fatihah','An-Nas','Al-Falaq','Al-Ikhlas','Al-Lahab','An-Nasr','Al-Kafirun','Al-Kautsar'],'surat',2.4,(i,d)=>`${d} (${[7,6,5,4,5,3,6,3][i]} ayat)`)],['Asmaul Husna',ar('الرَّحْمَٰنُ|Ar-Rahman|Maha Pengasih;الرَّحِيمُ|Ar-Rahim|Maha Penyayang;الْمَلِكُ|Al-Malik|Maha Merajai;السَّلَامُ|As-Salam|Maha Pemberi Keselamatan;الْخَالِقُ|Al-Khaliq|Maha Pencipta;الْغَفُورُ|Al-Ghafur|Maha Pengampun;الرَّزَّاقُ|Ar-Razzaq|Maha Pemberi Rezeki;الْعَلِيمُ|Al-Alim|Maha Mengetahui;السَّمِيعُ|As-Sami|Maha Mendengar;الْبَصِيرُ|Al-Bashir|Maha Melihat')]]};
+/* ===== Pengetahuan & permainan tambahan untuk TK ===== */
+const ENG=['puz','simon','urut'];
+const qa=r=>r.split(';').map(x=>{const[q,e,a]=x.split('|');return{l:`${q} → ${a}`,e,v:`<div class="big em1">${e}</div>`,qv:`<div class="big em1">${e}</div>`,a,pb:q,s:`${q} ${a}`,h:'',b:1}});
+const dd=r=>r.split(';').map(x=>{const[g,n,m]=x.split('|'),b=`<div class="big" style="font-size:2.4rem;font-family:${AR};line-height:1.8">${g}</div>`;return{l:n,v:b,qv:b,a:n,pb:'Doa apa ini?',s:`${n}. Artinya ${m}`,h:'Artinya: '+m,b:1}});
+const ag=r=>hij(r).map(x=>({...x,p:`Mana angka ${x.a.toLowerCase()}?`,pb:'Angka berapa ini?',s:`Angka ${x.a}`}));
+const sd=r=>r.split(';').map(x=>{const[n,e,h]=x.split('|');return{l:`${n}: ${h}`,e,v:`<div class="big em1">${e}</div><div class="big" style="font-size:2.2rem">“${h}”</div>`,qv:`<div class="big" style="font-size:3.2rem">🔊 “${h}”</div>`,a:n,pb:'Siapa yang bersuara seperti ini?',s:`${n} bersuara ${h}`,h:'',b:1}});
+const tk=r=>r.split(';').map(x=>{const[n,e,t]=x.split('|'),rd=`<div class="big" style="font-size:1.7rem;line-height:1.4;color:var(--ink)">${t}</div>`;return{l:`Jawabannya: ${n}`,e,v:rd+`<div class="em" style="font-size:4.5rem">${e}</div>`,qv:rd,a:n,pb:'Aku apakah?',s:`${t}. Jawabannya ${n}`,h:'',b:1}});
+const tw=r=>r.split(';').map(x=>{const[n,e,w]=x.split('|');return{l:`${n} berwarna ${w}`,e,v:`<div class="big em1">${e}</div>`,qv:`<div class="big em1">${e}</div>`,a:w,pb:`Apa warna ${n.toLowerCase()}?`,s:`${n} berwarna ${w}`,h:'',b:1}});
+const lv=(a,s)=>a.map(n=>[n,[]]);
+ 
+/* Rak Dasar */
+C.urutan={t:'Urutan & Arah',e:'🧭',c:'#5e35b1',g:0,L:[['Arah',em('Atas|⬆️;Bawah|⬇️;Kiri|⬅️;Kanan|➡️')],['Urutan ke berapa',tx(['Pertama','Kedua','Ketiga','Keempat','Kelima','Keenam','Ketujuh','Kedelapan','Kesembilan','Kesepuluh'],'urutan',2.8,(i,d)=>`Urutan ke-${i+1}: ${d}`)],['Ukuran benda',em('Besar|🐘;Kecil|🐭;Tinggi|🦒;Pendek|🐹;Panjang|🐍;Gemuk|🐷')]]};
+ 
+/* Rak Dunia Sekitar */
+C.keluarga={t:'Keluargaku',e:'👨‍👩‍👧',c:'#c2185b',g:1,L:[['Keluarga inti',em('Ayah|👨;Ibu|👩;Kakak|🧑;Adik|👶;Kakek|👴;Nenek|👵')],['Keluarga besar',em('Paman|🧔;Bibi|👩‍🦰;Sepupu|🧒;Cucu|👧;Tetangga|🏘️;Teman|🧑‍🤝‍🧑')],['Ruangan di rumah',em('Kamar Tidur|🛏️;Ruang Tamu|🛋️;Dapur|🍳;Kamar Mandi|🚿;Taman|🌳;Garasi|🚗')]]};
+C.bumi={t:'Bumi Kita',e:'🌍',c:'#0288d1',g:1,L:[['Benua',tx(['Asia','Afrika','Eropa','Amerika Utara','Amerika Selatan','Australia','Antartika'],'benua',2.4,(i,d)=>`Benua ${d}`)],['Samudra',tx(['Samudra Pasifik','Samudra Atlantik','Samudra Hindia','Samudra Arktik'],'samudra',2,(i,d)=>d)],['Bentang alam',em('Gunung|⛰️;Pulau|🏝️;Gurun|🏜️;Hutan|🌲;Sawah|🌾;Sungai|🏞️')]]};
+C.fungsi={t:'Fungsi Benda',e:'🛠️',c:'#6d4c41',g:1,L:[['Alat sekolah dan rumah',qa('Pensil untuk apa?|✏️|Menulis;Gunting untuk apa?|✂️|Memotong;Sendok untuk apa?|🥄|Makan;Sikat gigi untuk apa?|🪥|Menggosok gigi;Payung untuk apa?|☂️|Melindungi dari hujan;Kunci untuk apa?|🔑|Membuka pintu')],['Alat lainnya',qa('Jam untuk apa?|⏰|Melihat waktu;Sabun untuk apa?|🧼|Mencuci;Sapu untuk apa?|🧹|Menyapu;Kamera untuk apa?|📷|Memotret;Sepatu untuk apa?|👟|Melindungi kaki;Lampu untuk apa?|💡|Menerangi')]]};
+C.umum={t:'Pengetahuan Umum',e:'💡',c:'#f57c00',g:1,L:[['Berapa jumlahnya?',qa('Berapa hari dalam seminggu?|📅|Tujuh;Berapa bulan dalam setahun?|🗓️|Dua belas;Berapa jari di satu tangan?|✋|Lima;Berapa mata kita?|👀|Dua;Berapa kaki kucing?|🐱|Empat;Berapa roda sepeda?|🚲|Dua;Berapa warna pelangi?|🌈|Tujuh;Berapa sisi segitiga?|🔺|Tiga')],['Alam dan makhluk hidup',qa('Matahari terbit dari arah?|🌅|Timur;Matahari terbenam di arah?|🌇|Barat;Es mencair menjadi?|🧊|Air;Tumbuhan butuh air dan?|🌱|Cahaya matahari;Ayam berkembang biak dengan?|🐔|Bertelur;Kucing melahirkan?|🐱|Anak;Ikan bernapas dengan?|🐟|Insang;Burung bergerak dengan?|🐦|Terbang')],['Tubuh dan indra',qa('Kita melihat dengan?|👁️|Mata;Kita mendengar dengan?|👂|Telinga;Kita mencium dengan?|👃|Hidung;Kita mengecap dengan?|👅|Lidah;Kita meraba dengan?|✋|Kulit;Kita berjalan dengan?|🦶|Kaki;Kita makan dengan?|👄|Mulut;Kita berpikir dengan?|🧠|Otak')]]};
+ 
+/* Rak Kehidupan */
+C.jam={t:'Jam & Kegiatan',e:'⏰',c:'#455a64',g:2,L:[['Jam 1–6',em('Jam Satu|🕐;Jam Dua|🕑;Jam Tiga|🕒;Jam Empat|🕓;Jam Lima|🕔;Jam Enam|🕕')],['Jam 7–12',em('Jam Tujuh|🕖;Jam Delapan|🕗;Jam Sembilan|🕘;Jam Sepuluh|🕙;Jam Sebelas|🕚;Jam Dua Belas|🕛')],['Kegiatan sehari-hari',em('Bangun Tidur|⏰;Mandi|🛁;Sarapan|🥣;Berangkat Sekolah|🚌;Belajar|📚;Makan Siang|🍛;Tidur Siang|😴;Tidur Malam|🌙')]]};
+C.uang={t:'Mengenal Uang',e:'💰',c:'#2e7d32',g:2,L:[['Uang kertas',tx(['Seribu Rupiah','Dua Ribu Rupiah','Lima Ribu Rupiah','Sepuluh Ribu Rupiah','Dua Puluh Ribu Rupiah','Lima Puluh Ribu Rupiah','Seratus Ribu Rupiah'],'uang',2.2,(i,d)=>`Uang ${d}`)],['Uang logam',tx(['Seratus Rupiah','Dua Ratus Rupiah','Lima Ratus Rupiah','Seribu Rupiah'],'uang logam',2.4,(i,d)=>`Uang logam ${d}`)],['Menabung dan berbagi',em('Celengan|🐷;Dompet|👛;Koin|🪙;Toko|🏪;Berbagi|🤝;Menabung|💰')]]};
+C.aman={t:'Aman & Selamat',e:'🚸',c:'#c62828',g:2,L:[['Lalu lintas',qa('Lampu merah artinya?|🔴|Berhenti;Lampu kuning artinya?|🟡|Hati-hati;Lampu hijau artinya?|🟢|Jalan;Menyeberang lewat?|🚸|Zebra cross;Naik motor memakai?|🏍️|Helm;Naik mobil memakai?|🚗|Sabuk pengaman')],['Bahaya di sekitar',qa('Kompor menyala?|🔥|Jangan disentuh;Stop kontak listrik?|🔌|Jangan dimainkan;Pisau tajam?|🔪|Jangan dipegang;Lantai basah?|💦|Hati-hati licin;Obat boleh diminum dengan?|💊|Izin orang dewasa;Orang asing mengajak pergi?|🚫|Tolak dan lapor')],['Saat darurat',qa('Ada api, panggil?|🚒|Pemadam kebakaran;Ada orang sakit, panggil?|🚑|Ambulans;Ada pencuri, panggil?|👮|Polisi')]]};
+C.kegiatan={t:'Kegiatanku',e:'🎯',c:'#7b1fa2',g:2,L:[['Kegiatan di rumah',em('Mandi|🛁;Makan|🍚;Tidur|😴;Menyapu|🧹;Mencuci Piring|🍽️;Menyiram Tanaman|🌱')],['Kegiatan di sekolah',em('Belajar|📚;Menggambar|🎨;Bernyanyi|🎤;Menari|💃;Berbaris|🧍;Mewarnai|🖍️')],['Kegiatan bermain',em('Berlari|🏃;Melompat|🤸;Bermain Bola|⚽;Bermain Pasir|🏖️;Bermain Ayunan|🎠;Bermain Air|💦')]]};
+ 
+/* Rak Islami */
+C.akhlak={t:'Akhlak Mulia',e:'💖',c:'#ad1457',g:3,L:[['Sifat baik',em('Jujur|😇;Sabar|🧘;Berbagi|🤝;Menolong|🧑‍🤝‍🧑;Rajin|💪;Bersyukur|🤲;Memaafkan|🕊️;Sopan|🙏')],['Ucapan yang baik',qa('Bertemu teman, ucapkan?|🤝|Assalamualaikum;Diberi hadiah, ucapkan?|🎁|Terima kasih;Bersin, ucapkan?|🤧|Alhamdulillah;Teman bersin, ucapkan?|👂|Yarhamukallah;Berbuat salah, ucapkan?|🙇|Maaf')]]};
+C.kisah={t:'Kisah Nabi',e:'📖',c:'#4e342e',g:3,L:[['Mengenal para nabi',qa('Nabi Nuh membuat apa?|🚢|Kapal besar;Nabi Yunus ditelan?|🐋|Ikan paus;Nabi Sulaiman bisa bicara dengan?|🐜|Hewan;Nabi Musa membawa?|🦯|Tongkat;Nabi Ibrahim membangun?|🕋|Kakbah;Nabi Adam adalah manusia?|🌳|Pertama')],['Nabi Muhammad',qa('Nabi Muhammad lahir di kota?|🕌|Mekah;Nabi terakhir adalah?|🌙|Nabi Muhammad;Kitab suci umat Islam?|📖|Al-Quran;Nabi Muhammad berhijrah ke?|🐪|Madinah')]]};
+C.angkaarab={t:'Angka Arab',e:'١٢٣',c:'#00838f',g:3,L:[['Angka Arab 1–5',ag('١|Satu;٢|Dua;٣|Tiga;٤|Empat;٥|Lima')],['Angka Arab 6–10',ag('٦|Enam;٧|Tujuh;٨|Delapan;٩|Sembilan;١٠|Sepuluh')]]};
+C.wudu={t:'Wudu & Shalat',e:'🧎',c:'#00695c',g:3,L:[['Langkah berwudu',tx(['Berniat','Membasuh telapak tangan','Berkumur','Membersihkan hidung','Membasuh wajah','Membasuh tangan sampai siku','Mengusap kepala','Mengusap telinga','Membasuh kaki'],'langkah',1.9,(i,d)=>`Langkah ${i+1}: ${d}`)],['Gerakan shalat',tx(['Takbiratul Ihram','Membaca Al-Fatihah','Rukuk','Itidal','Sujud','Duduk di antara dua sujud','Sujud kedua','Tasyahud','Salam'],'gerakan',2,(i,d)=>`Gerakan ${i+1}: ${d}`)],['Jumlah rakaat',qa('Shalat Subuh berapa rakaat?|🌅|Dua;Shalat Zuhur berapa rakaat?|☀️|Empat;Shalat Asar berapa rakaat?|🌇|Empat;Shalat Magrib berapa rakaat?|🌆|Tiga;Shalat Isya berapa rakaat?|🌙|Empat')]]};
+ 
+/* Tambahan di materi yang sudah ada */
+C.hewan.L.push(['Makanan hewan',qa('Kucing makan apa?|🐱|Ikan;Kelinci makan apa?|🐰|Wortel;Sapi makan apa?|🐄|Rumput;Monyet makan apa?|🐵|Pisang;Burung makan apa?|🐦|Biji-bijian;Harimau makan apa?|🐯|Daging')],['Rumah hewan',qa('Burung tinggal di?|🐦|Sarang;Ikan tinggal di?|🐟|Air;Sapi tinggal di?|🐄|Kandang;Beruang tinggal di?|🐻|Gua;Laba-laba membuat?|🕷️|Jaring;Semut tinggal di?|🐜|Tanah;Lebah tinggal di?|🐝|Sarang lebah')]);
+C.profesi.L.push(['Tugas pekerjaan',qa('Dokter bertugas?|👨‍⚕️|Mengobati;Guru bertugas?|👩‍🏫|Mengajar;Polisi bertugas?|👮|Menjaga keamanan;Petani bertugas?|👨‍🌾|Menanam padi;Pemadam bertugas?|🧑‍🚒|Memadamkan api;Pilot bertugas?|👨‍✈️|Menerbangkan pesawat;Koki bertugas?|👨‍🍳|Memasak;Nelayan bertugas?|🎣|Menangkap ikan')]);
+C.indo.L.push(['Mengenal Indonesia',qa('Bendera Indonesia berwarna?|🇮🇩|Merah putih;Lambang negara kita?|🦅|Garuda;Lagu kebangsaan kita?|🎵|Indonesia Raya;Bahasa kita?|🗣️|Bahasa Indonesia;Hewan khas Papua?|🦜|Cendrawasih;Hewan khas Nusa Tenggara?|🦎|Komodo')]);
+C.sains.L.push(['Daur hidup kupu-kupu',tx(['Telur','Ulat','Kepompong','Kupu-kupu'],'tahap',2.8,(i,d)=>`Tahap ke-${i+1}: ${d}`)],['Siklus air',tx(['Air menguap','Awan terbentuk','Hujan turun','Air mengalir'],'tahap',2.2,(i,d)=>`Tahap ke-${i+1}: ${d}`)],['Benda dan rasanya',qa('Magnet menarik?|🧲|Besi;Es batu terasa?|🧊|Dingin;Api terasa?|🔥|Panas;Gula terasa?|🍬|Manis;Garam terasa?|🧂|Asin;Lemon terasa?|🍋|Asam')]);
+C.angkasa.L.push(['Planet di tata surya',tx(['Merkurius','Venus','Bumi','Mars','Jupiter','Saturnus','Uranus','Neptunus'],'planet',2.6,(i,d)=>`Planet ke-${i+1}: ${d}`)]);
+C.ibadah.L.push(['Tugas malaikat',qa('Malaikat Jibril bertugas?|📜|Menyampaikan wahyu;Malaikat Mikail bertugas?|🌧️|Membagi rezeki;Malaikat Israfil bertugas?|🎺|Meniup sangkakala;Malaikat Izrail bertugas?|🕊️|Mencabut nyawa;Malaikat Raqib bertugas?|📝|Mencatat amal baik;Malaikat Atid bertugas?|📔|Mencatat amal buruk;Malaikat Malik bertugas?|🔥|Menjaga neraka;Malaikat Ridwan bertugas?|🌺|Menjaga surga')],['Hari besar Islam',tx(['Idul Fitri','Idul Adha','Maulid Nabi','Isra Miraj','Tahun Baru Islam'],'hari besar',2.4,(i,d)=>`Hari besar: ${d}`)]);
+C.doa.L.push(['Doa harian 1',dd('اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ|Doa Sebelum Makan|Ya Allah, berkahilah rezeki kami dan jauhkan kami dari siksa neraka;الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ|Doa Sesudah Makan|Segala puji bagi Allah yang memberi kami makan dan minum serta menjadikan kami Muslim;رَبِّ زِدْنِي عِلْمًا وَارْزُقْنِي فَهْمًا|Doa Belajar|Ya Tuhanku, tambahkanlah ilmuku dan berilah aku pemahaman;بِاسْمِكَ اللَّهُمَّ أَحْيَا وَبِاسْمِكَ أَمُوتُ|Doa Sebelum Tidur|Dengan nama-Mu ya Allah aku hidup dan aku mati;الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ|Doa Bangun Tidur|Segala puji bagi Allah yang menghidupkan kami setelah mematikan kami dan kepada-Nya kami kembali')],['Doa harian 2',dd('رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ وَارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا|Doa untuk Orang Tua|Ya Tuhanku, ampunilah aku dan kedua orang tuaku, sayangilah mereka seperti mereka menyayangiku waktu kecil;سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ|Doa Naik Kendaraan|Maha Suci Allah yang menundukkan kendaraan ini untuk kami;اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ|Doa Masuk Kamar Mandi|Ya Allah, aku berlindung kepada-Mu dari setan laki-laki dan perempuan;بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ|Doa Keluar Rumah|Dengan nama Allah, aku berserah kepada Allah, tidak ada daya dan kekuatan kecuali dengan Allah;اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ|Doa Masuk Masjid|Ya Allah, bukakanlah pintu-pintu rahmat-Mu untukku')]);
+C.hijaiyah.L.push(['Harakat Shad dan Dhad',hh('ص','sh','ض','dh')],['Harakat Tha dan Zha',hh('ط','th','ظ','zh')],['Harakat Ghain dan Fa',hh('غ','gh','ف','f')],['Harakat Qaf dan Wawu',hh('ق','q','و','w')],['Harakat Ha dan Ya',hh('ه','h','ي','y')],['Tanwin Ba dan Ta',hr('ب\u064B|ban;ب\u064D|bin;ب\u064C|bun;ت\u064B|tan;ت\u064D|tin;ت\u064C|tun')],['Tanwin Tsa dan Jim',hr('ث\u064B|tsan;ث\u064D|tsin;ث\u064C|tsun;ج\u064B|jan;ج\u064D|jin;ج\u064C|jun')]);
+ADV.hijaiyah=rng(5,40);REK['TK-B'].hijaiyah=rng(5,40);
+ 
+/* Rak Permainan */
+C.suara={t:'Tebak Suara Hewan',e:'🔊',c:'#f57f17',g:4,L:[['Hewan peliharaan',sd('Kucing|🐱|meong;Anjing|🐶|guk guk;Ayam Jago|🐓|kukuruyuk;Bebek|🦆|kwek kwek;Burung|🐦|cuit cuit;Katak|🐸|kung kung')],['Hewan ternak',sd('Sapi|🐄|mooo;Kambing|🐐|mbek;Domba|🐑|mbee;Kuda|🐴|ihihi;Babi|🐷|oink;Angsa|🦢|honk')],['Hewan liar',sd('Singa|🦁|auum;Harimau|🐯|grrr;Gajah|🐘|tuut;Monyet|🐵|uu aa;Lebah|🐝|ngiing;Ular|🐍|ssss')]]};
+C.teka={t:'Teka-teki Gambar',e:'❓',c:'#6a1b9a',g:4,L:[['Teka-teki hewan',tk('Kucing|🐱|Aku suka makan ikan dan bersuara meong;Ayam|🐔|Aku berkokok di pagi hari;Gajah|🐘|Hidungku panjang dan badanku besar;Kelinci|🐰|Telingaku panjang dan aku suka wortel;Ikan|🐟|Aku hidup di air dan punya sirip;Jerapah|🦒|Leherku sangat panjang')],['Teka-teki benda',tk('Jam|⏰|Aku punya jarum dan menunjukkan waktu;Payung|☂️|Aku melindungi dari hujan;Sepatu|👟|Aku dipakai di kaki;Buku|📖|Aku punya banyak halaman untuk dibaca;Pensil|✏️|Aku dipakai untuk menulis dan menggambar;Lampu|💡|Aku menerangi saat gelap')],['Teka-teki alam dan buah',tk('Matahari|☀️|Aku bersinar terang di siang hari;Bulan|🌙|Aku muncul di malam hari;Pelangi|🌈|Aku punya tujuh warna setelah hujan;Pisang|🍌|Aku kuning dan kulitku bisa dikupas;Semangka|🍉|Luarku hijau dalamku merah dan manis;Pohon|🌳|Aku punya batang daun dan akar')]]};
+C.tebakwarna={t:'Tebak Warna',e:'🌈',c:'#d81b60',g:4,L:[['Warna benda 1',tw('Apel|🍎|Merah;Pisang|🍌|Kuning;Daun|🍃|Hijau;Laut|🌊|Biru;Jeruk|🍊|Oranye;Terong|🍆|Ungu')],['Warna benda 2',tw('Salju|❄️|Putih;Beruang|🐻|Cokelat;Bunga Mawar|🌹|Merah;Wortel|🥕|Oranye;Jagung|🌽|Kuning;Brokoli|🥦|Hijau')]]};
+C.simon={t:'Ingat Urutan',e:'🧠',c:'#3949ab',g:4,L:lv(['Mudah · 2 warna','Sedang · 3 warna','Sulit · 4 warna','Ahli · 5 warna','Juara · 6 warna','Super · 8 warna'])};
+C.urut={t:'Urutkan Angka',e:'🪜',c:'#ef6c00',g:4,L:lv(['Angka 1–5','Angka 1–10','Angka 6–15','Puluhan 10–100','Angka 1–20','Besar ke kecil 1–10'])};
+ 
+/* Permainan: Ingat Urutan */
+const SMC=['#e53935','#1e88e5','#43a047','#fdd835'],SMF=[262,330,392,523],SIMON=[2,3,4,5,6,8];
+let M={};
+function simon(fresh){
+ if(fresh)M={seq:Array.from({length:SIMON[S.l]},()=>Math.floor(Math.random()*4)),i:0,ph:'show',lit:-1,err:0,t:Math.random()};
+ const w=M.ph==='win',st=M.err===0?3:M.err<=1?2:1;
+ if(w&&!M.rec){M.rec=1;const k=key(S.c,S.l);if(st>(PR[k]||0)){PR[k]=st;save()}}
+ $$('#mn').innerHTML=`<p class="q">${M.ph==='show'?'Perhatikan urutannya! 👀':w?'Hebat sekali! 🎉':'Giliranmu! Ketuk warnanya 👆'}</p><div class="dots">${M.seq.length} warna · salah: ${M.err}</div><div class="smg ${M.ph==='show'?'show':''}">${SMC.map((c,i)=>`<button class="sm ${M.lit===i?'lit':''}" style="--k:${c}" aria-label="Warna ${i+1}" ${M.ph==='play'?'':'disabled'} onclick="smTap(${i})"></button>`).join('')}</div><div class="win">${w?`<span class="st">🎉 ${'⭐'.repeat(st)}</span><button onclick="simon(true)">🔁 Main lagi</button>${S.l<SIMON.length-1?'<button onclick="set({l:S.l+1})">Tingkat berikutnya ▶</button>':''}<button onclick="set({v:\'cat\'})">📚 Daftar tingkat</button>`:''}</div>`;
+ if(fresh)smShow(M.t);
+}
+function smShow(tok){
+ let k=0;
+ const step=()=>{
+  if(M.t!==tok||S.v!=='simon')return;
+  if(k>=M.seq.length){M.ph='play';M.i=0;M.lit=-1;simon();say('Giliranmu!');return}
+  M.lit=M.seq[k];tone(SMF[M.lit],.35);simon();
+  setTimeout(()=>{if(M.t!==tok||S.v!=='simon')return;M.lit=-1;simon();k++;setTimeout(step,250)},600);
+ };
+ setTimeout(step,800);
+}
+function smTap(i){
+ if(M.ph!=='play')return;
+ if(i===M.seq[M.i]){M.i++;if(M.i>=M.seq.length){M.ph='win';sfx(1);say('Hebat sekali!')}}
+ else{M.err++;M.i=0;M.ph='show';M.lit=-1;M.t=Math.random();sfx(0);say('Coba lagi ya!');simon();smShow(M.t);return}
+ M.lit=i;tone(SMF[i],.25);simon();
+ setTimeout(()=>{if(S.v==='simon'&&M.lit===i){M.lit=-1;simon()}},180);
+}
+ 
+/* Permainan: Urutkan Angka */
+const URUT=[[1,5,1],[1,10,1],[6,15,1],[10,100,10],[1,20,1],[1,10,-1]];
+let T={};
+function urut(fresh){
+ const[a,b,s]=URUT[S.l];
+ if(fresh){const st=s===10?10:1,ar=[];for(let x=a;x<=b;x+=st)ar.push(x);T={k:shuf(ar),tg:s<0?[...ar].reverse():ar,i:0,err:0,bad:-1}}
+ const w=T.i>=T.tg.length,stars=T.err===0?3:T.err<=2?2:1,done=T.tg.slice(0,T.i);
+ if(w&&!T.rec){T.rec=1;const k=key(S.c,S.l);if(stars>(PR[k]||0)){PR[k]=stars;save()}}
+ $$('#mn').innerHTML=`<p class="q">Ketuk angkanya dari ${s<0?'yang paling besar ke kecil':'yang paling kecil ke besar'}! 👆</p><div class="dots">Salah: ${T.err}</div><div class="pg" style="--n:${T.k.length>12?5:4}">${T.k.map((v,j)=>{const d=done.includes(v);return `<button class="pc ${d?'d':''} ${T.bad===j?'x':''}" style="font-size:${String(v).length>2?'1.5':'2'}rem;${d?'color:#2e7d32':''}" onclick="tapU(${j})">${v}</button>`}).join('')}</div><div class="win">${w?`<span class="st">🎉 ${'⭐'.repeat(stars)}</span>Hebat! Urutanmu benar semua!<br><button onclick="urut(true)">🔁 Main lagi</button>${S.l<URUT.length-1?'<button onclick="set({l:S.l+1})">Tingkat berikutnya ▶</button>':''}<button onclick="set({v:\'cat\'})">📚 Daftar tingkat</button>`:''}</div>`;
+}
+function tapU(j){
+ if(T.i>=T.tg.length)return;
+ const v=T.k[j];
+ if(T.tg.slice(0,T.i).includes(v))return;
+ if(v===T.tg[T.i]){T.i++;T.bad=-1;sfx(2);say(String(v));if(T.i>=T.tg.length){sfx(1)}urut()}
+ else{T.err++;T.bad=j;sfx(0);urut();setTimeout(()=>{T.bad=-1;if(S.v==='urut')urut()},450)}
+}
 /* Pencarian dan gelar */
 const lvl=()=>{const t=tot();return t<10?'Pemula':t<30?'Penjelajah':t<80?'Bintang Cerah':t<150?'Juara':'Pustakawan Hebat'};
 const fq=v=>{v=v.toLowerCase().trim();document.querySelectorAll('.sec').forEach(s=>{let a=0;s.querySelectorAll('.tile').forEach(t=>{const m=t.dataset.n.includes(v);t.style.display=m?'':'none';if(m)a=1});s.style.display=a?'':'none'})};
@@ -233,7 +334,7 @@ function render(){
  document.documentElement.style.setProperty('--c',c?c.c:'#1e88e5');
  const ttl=S.v==='auth'?'Masuk 🔑':S.v==='certs'||S.v==='cert'?'Sertifikat 🏅':S.v==='guru'?(U&&U.peran==='kepsek'?'Kepala Sekolah 🏫':'Ruang Guru 👩‍🏫'):!c?'Perpustakaan RA AL Falah Ngubalan':S.v==='cat'?`${c.e} ${c.t}`:`Tingkat ${S.l+1} · ${c.L[S.l][0]}`;
  $$('#hd').innerHTML=(c?'<button class="back" aria-label="Kembali" onclick="back()">◀</button>':'')+`<img class="lg" src="${LOGO}" alt="Logo" onerror="this.style.display='none'"><h1>${ttl}</h1>`+(U?`<button class="pill" onclick="logout()" aria-label="Keluar">${murid()?'⭐ '+tot()+' · ':''}${esc(U.nama)} ⎋</button>`:S.v==='auth'?'':`<div class="pill">⭐ ${tot()}</div>`);
- if(S.v==='auth')auth();else if(S.v==='guru')guruv();else if(S.v==='certs')certs();else if(S.v==='cert')cert();else if(S.v==='home')home();else if(S.v==='cat')cat();else if(S.v==='puz')puz(true);else S.m==='learn'?learn():S.m==='quiz'?drawQ():result();
+ if(S.v==='auth')auth();else if(S.v==='guru')guruv();else if(S.v==='certs')certs();else if(S.v==='cert')cert();else if(S.v==='home')home();else if(S.v==='cat')cat();else if(S.v==='puz')puz(true);else if(S.v==='simon')simon(true);else if(S.v==='urut')urut(true);else S.m==='learn'?learn():S.m==='quiz'?drawQ():result();
 }
 const prog=k=>{const o=C[k],v=o.L.map((_,i)=>i).filter(i=>!hid(k,i));return `⭐ ${v.reduce((a,i)=>a+(PR[key(k,i)]||0),0)}/${v.length*3} · ${v.length} tingkat`};
 function home(){
@@ -242,9 +343,9 @@ function home(){
 }
 function cat(){
  const k=S.c,o=C[k];
- $$('#mn').innerHTML='<p class="hello">Dapatkan minimal 1 ⭐ untuk membuka tingkat berikutnya.</p>'+o.L.map(([n,it],i)=>{if(hid(k,i))return '';const rk=rek(k,i),lk=i&&!(PR[key(k,i-1)]>=1),st=PR[key(k,i)]||0;return `<button class="lv ${lk?'lk':''}" ${lk?'disabled':''} onclick="opn(${i})"><div class="no">${lk?'🔒':i+1}</div><div><b>${n}</b><br><small>${lk?'Selesaikan tingkat sebelumnya':(k==='puz'?'':it.length+' kartu · ')+'⭐'.repeat(st)+'☆'.repeat(3-st)}${rk&&!lk?' · 🌟 Rekomendasi':''}</small></div></button>`}).join('');
+ $$('#mn').innerHTML='<p class="hello">Dapatkan minimal 1 ⭐ untuk membuka tingkat berikutnya.</p>'+o.L.map(([n,it],i)=>{if(hid(k,i))return '';const rk=rek(k,i),lk=i&&!(PR[key(k,i-1)]>=1),st=PR[key(k,i)]||0;return `<button class="lv ${lk?'lk':''}" ${lk?'disabled':''} onclick="opn(${i})"><div class="no">${lk?'🔒':i+1}</div><div><b>${n}</b><br><small>${lk?'Selesaikan tingkat sebelumnya':(ENG.includes(k)?'':it.length+' kartu · ')+'⭐'.repeat(st)+'☆'.repeat(3-st)}${rk&&!lk?' · 🌟 Rekomendasi':''}</small></div></button>`}).join('');
 }
-const opn=i=>S.c==='puz'?set({v:'puz',l:i}):set({v:'lvl',l:i,i:0,m:'learn'});
+const opn=i=>ENG.includes(S.c)?set({v:S.c,l:i}):set({v:'lvl',l:i,i:0,m:'learn'});
 const items=()=>C[S.c].L[S.l][1];
 function tabs(){return `<div class="tabs"><button class="${S.m==='learn'?'on':''}" onclick="set({m:'learn'})">📖 Belajar</button><button class="${S.m!=='learn'?'on':''}" onclick="startQ()">🎯 Kuis</button></div>`}
 function learn(){
